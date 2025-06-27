@@ -11,7 +11,7 @@ export default function handler(req, res) {
   const hash = crypto.createHash("md5").update(pass + SALT).digest("hex");
 
   const usuarios = {
-    "admin": "9ee675e05b3aadd09a5bcc7273f82f43"
+    "admin": "d20c3499627447352ba94b1f485bc889"
   };
 
   if (usuarios[user] === hash) {
