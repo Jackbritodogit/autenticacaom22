@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login M22</title>
+  <style>
+    body {
+      background: #2c3e50;
+      font-family: sans-serif;
+      color: white;
+      text-align: center;
+      padding-top: 100px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background: #2980b9;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Login M22</h2>
+  <input id="user" placeholder="Usuário"><br>
+  <input id="pass" type="password" placeholder="Senha"><br>
+  <button onclick="login()">Entrar</button>
+  <p id="resposta"></p>
+
+  <script>
+    async function login() {
+      const user = document.getElementById('user').value;
+      const pass = document.getElementById('pass').value;
+
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user, pass })
+      });
+
+      const data = await res.json();
+      const resposta = document.getElementById('resposta');
+
+      if (data.success) {
+        resposta.innerText = "✅ Login autorizado!";
+        resposta.style.color = "lightgreen";
+      } else {
+        resposta.innerText = "❌ " + data.message;
+        resposta.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
